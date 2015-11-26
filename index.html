@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wb.js</title>
+	<!--script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script-->
+	<script src="libs/easeljs-0.7.1.js"></script>
+	<script src="wb/global.js"></script>
+	<script src="wb/Event.js"></script>
+	<script src="wb/TextArea.js"></script>
+	<script src="wb/WBModel.js"></script>
+	<script src="wb/WBServer.js"></script>
+	<script src="wb/WBCanvas.js"></script>
+	<script src="wb/WBPropertiesToolBar.js"></script>
+	<script src="wb/WBShapeDescriptor.js"></script>
+	<script src="wb/WBShapeContainer.js"></script>
+	<script src="wb/WBDragHandles.js"></script>
+	<script src="wb/WBShapeBase.js"></script>
+	<script src="wb/shapes/WBBaseTextShape.js"></script>
+	<script src="wb/shapes/WBTextShape.js"></script>
+	<script src="wb/shapes/WBTextShapeFactory.js"></script>	
+	<script src="wb/shapes/WBSimpleShape.js"></script>
+	<script src="wb/shapes/WBSimpleShapeFactory.js"></script>
+	<script src="wb/shapes/WBMarkerShape.js"></script>
+	<script src="wb/shapes/WBMarkerShapeFactory.js"></script>
+	<script src="wb/shapes/WBImageShape.js"></script>
+	<script src="wb/shapes/WBImageShapeFactory.js"></script>
+	<script src="wb/shapes/WBArrowShape.js"></script>
+	<script src="wb/shapes/WBArrowShapeFactory.js"></script>
+	<script src="wb/shapes/WBLineShape.js"></script>
+	<script src="wb/shapes/WBLineShapeFactory.js"></script>
+	<script src="wb/GraphicsUtils.js"></script>
+	<script src="wb/Point.js"></script>
+	<script src="wb/Menu.js"></script>
+	
+	<script src="wb/commands/WBCommandManager.js"></script>
+	<script src="wb/commands/WBCreateAddShapes.js"></script>
+	<script src="wb/commands/WBBringToFrontShape.js"></script>
+	<script src="wb/commands/WBCommandManager.js"></script>
+	<script src="wb/commands/WBCopyShapes.js"></script>
+	<script src="wb/commands/WBGroupShapes.js"></script>
+	<script src="wb/commands/WBPasteShapes.js"></script>
+	<script src="wb/commands/WBRemoveShapes.js"></script>
+	<script src="wb/commands/WBSelectionChange.js"></script>
+	<script src="wb/commands/WBSendToBackShape.js"></script>
+	<script src="wb/commands/WBShapeContainersChange.js"></script>
+	<script src="wb/commands/WBShapesPropertyChange.js"></script>
+	
+	<!-- jQuery / jQuery UI -->
+	<script src="libs/jquery/jquery-1.9.1.js"></script>
+	<script src="libs/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="libs/jquery/themes/smoothness/jquery-ui.min.css">
+	
+	<!-- wColorPicker jQuery plugin -->
+	<link rel="Stylesheet" type="text/css" href="libs/colorpicker/wColorPicker.css" />
+	<script type="text/javascript" src="libs/colorpicker/rgbHex.min.js"></script>
+	<script type="text/javascript" src="libs/colorpicker/wColorPicker.js"></script>
+	
+	<!-- contextMenu jQuery plugin -->
+	<script src="libs/contextMenu/jquery.contextMenu.js" type="text/javascript"></script>
+    <link href="libs/contextMenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+	
+	<!-- FileSaver lib -->
+	<script type="text/javascript" src="libs/FileSaver.min.js"></script>
+	
+	<script src="test.js"></script>
+	<link rel="stylesheet" type="text/css" href="test.css">
+</head>
+<body onLoad="init();">
+	<div id="shape_toolbar" class="ui-widget-header ui-corner-all">
+		<button id="cmdSelect" onclick="btnSelect_click()">select</button>
+		<button id="cmdDel" onclick="btnDel_click()">del</button>
+		<button id="cmdDelAll" onclick="btnDelAll_click()">clear all</button>
+		<button id="cmdUndo" onclick="btnUndo_click()">undo</button>
+		<button id="cmdRedo" onclick="btnRedo_click()">redo</button>
+		<button id="cmdCopy" onclick="btnCopy_click()">copy</button>
+		<!--button id="cmdCut" onclick="btnCut_click()">cut</button-->
+		<button id="cmdPaste" onclick="btnPaste_click()">paste</button>
+		<button id="cmdFront" onclick="btnFront_click()">front</button>
+		<button id="cmdBack" onclick="btnBack_click()">back</button>
+		<select id="shapeType" class="custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left ui-autocomplete-input"></select>
+		<button id="cmdSimple" onclick="btnSimple_click()">shape</button>
+		<button id="cmdMarker" onclick="btnMarker_click()">draw</button>
+		<button id="cmdArrow" onclick="btnArrow_click()">arrow</button>
+		<button id="cmdLine" onclick="btnLine_click()">line</button>
+		<button id="cmdCurveLine" onclick="btnCurveLine_click()">curve line</button>
+		<button id="cmdPoly" onclick="btnPoly_click()">polygon</button>
+		<button id="cmdImage" onclick="btnImage_click()">image</button>
+		<button id="cmdText" onclick="btnText_click()">text</button>
+		<div style="float: right;">
+			<button id="cmdSave" onclick="btnSave_click()">save</button>
+			<button id="cmdOpen" onclick="btnOpen_click()">open</button>
+		</div>
+	</div>
+
+	<div id="prop_toolbar" class="ui-widget-header ui-corner-all">
+		<button id="lineColorPicker" class="hoverBox"></button>
+		<button id="fillColorPicker" class="hoverBox"></button>
+		<label for="spinnerThick">thickness:</label><input id="spinnerThick" value="1" style="width: 40px">
+		<label for="comboAlpha">alpha:</label><select id="comboAlpha" style="width: 80px" class="custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left ui-autocomplete-input"></select>
+		<label for="checkDashed">dashed:</label><input id="checkDashed" type="checkbox"></input>
+	</div>
+	
+	<div id="divCanvas" style="float: left; border-style: solid; border-color: 0; ">
+		<canvas id="demoCanvas" width="1000" height="700">
+			alternate content
+		</canvas>
+	</div>
+	
+	<div style="float: right; width: 550px">
+		<button id="btnClear" onclick="{$('#logTxt').html('')}">clear</button>
+		<input id="chkTrace" onclick="chkTrace_click()" type="checkbox">trace</input>
+		<textarea id="logTxt" style="width: 550px; height: 600px; border: solid 1pt 0; background-color: #FFFF80; font-family: Arial; font-size: 12px"> </textarea>
+	</div>
+	
+	<!-- Forms -->
+	
+	<div id="openLocDialog" style="display: none;">
+		<form class="formee" id="openForm" method="GET" action="/">
+			<div id="fileOpenField" class="grid-12-12">
+				Filename<input type="file" id="FileLocal" name="FileLocal" size="50" value="" style="background: rgb(255, 255, 140);"/>
+			</div>
+			<div id="fileSaveField" class="grid-12-12" style="display: none">
+				Filename<input type="text" id="FileLocal2" name="FileLocal2" size="50" value="" style="background: rgb(255, 255, 140);"/>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+/*!
+ * jQuery contextMenu - Plugin for simple contextMenu handling
+ *
+ * Version: git-master
+ *
+ * Authors: Rodney Rehm, Addy Osmani (patches for FF)
+ * Web: http://medialize.github.com/jQuery-contextMenu/
+ *
+ * Licensed under
+ *   MIT License http://www.opensource.org/licenses/mit-license
+ *   GPL v3 http://opensource.org/licenses/GPL-3.0
+ *
+ */
+
+.context-menu-list {
+    margin:0; 
+    padding:0;
+    
+    min-width: 120px;
+    max-width: 250px;
+    display: inline-block;
+    position: absolute;
+    list-style-type: none;
+    
+    border: 1px solid #DDD;
+    background: #EEE;
+    
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+       -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+         -o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+.context-menu-item {
+    padding: 2px 2px 2px 24px;
+    background-color: #EEE;
+    position: relative;
+    -webkit-user-select: none;
+       -moz-user-select: -moz-none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.context-menu-separator {
+    padding-bottom:0;
+    border-bottom: 1px solid #DDD;
+}
+
+.context-menu-item > label > input,
+.context-menu-item > label > textarea {
+    -webkit-user-select: text;
+       -moz-user-select: text;
+        -ms-user-select: text;
+            user-select: text;
+}
+
+.context-menu-item.hover {
+    cursor: pointer;
+    background-color: #39F;
+}
+
+.context-menu-item.disabled {
+    color: #666;
+}
+
+.context-menu-input.hover,
+.context-menu-item.disabled.hover {
+    cursor: default;
+    background-color: #EEE;
+}
+
+.context-menu-submenu:after {
+    content: ">";
+    color: #666;
+    position: absolute;
+    top: 0;
+    right: 3px;
+    z-index: 1;
+}
+
+/* icons
+    #protip:
+    In case you want to use sprites for icons (which I would suggest you do) have a look at
+    http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement 
+    .context-menu-item.icon:before {}
+ */
+.context-menu-item.icon { min-height: 18px; background-repeat: no-repeat; background-position: 4px 2px; }
+.context-menu-item.icon-edit { background-image: url(images/page_white_edit.png); }
+.context-menu-item.icon-cut { background-image: url(images/cut.png); }
+.context-menu-item.icon-copy { background-image: url(images/page_white_copy.png); }
+.context-menu-item.icon-paste { background-image: url(images/page_white_paste.png); }
+.context-menu-item.icon-delete { background-image: url(images/page_white_delete.png); }
+.context-menu-item.icon-add { background-image: url(images/page_white_add.png); }
+.context-menu-item.icon-quit { background-image: url(images/door.png); }
+
+/* piero */
+.context-menu-item.icon-open { background-image: url(../wb/assets/open.png); background-size: 18px 18px; }
+.context-menu-item.icon-save { background-image: url(../wb/assets/save.png); background-size: 18px 18px; }
+.context-menu-item.icon-arrow { background-image: url(../wb/assets/tool_arrow.png); background-size: 18px 18px; }
+.context-menu-item.icon-front { background-image: url(../wb/assets/tool_bringfront.png); background-size: 18px 18px; }
+.context-menu-item.icon-circle { background-image: url(../wb/assets/tool_circle.png); background-size: 18px 18px; }
+.context-menu-item.icon-circlec { background-image: url(../wb/assets/tool_circle_c.png); background-size: 18px 18px; }
+.context-menu-item.icon-clear{ background-image: url(../wb/assets/tool_clear.png); background-size: 18px 18px; }
+.context-menu-item.icon-clearall { background-image: url(../wb/assets/tool_clear_all.png); background-size: 18px 18px; }
+.context-menu-item.icon-cleargrp { background-image: url(../wb/assets/tool_clear_grp.png); background-size: 18px 18px; }
+.context-menu-item.icon-cloud { background-image: url(../wb/assets/tool_cloud.png); background-size: 18px 18px; }
+.context-menu-item.icon-cloudc { background-image: url(../wb/assets/tool_cloud_c.png); background-size: 18px 18px; }
+.context-menu-item.icon-ellipse { background-image: url(../wb/assets/tool_ellipse.png); background-size: 18px 18px; }
+.context-menu-item.icon-ellipsec { background-image: url(../wb/assets/tool_ellipse_c.png); background-size: 18px 18px; }
+.context-menu-item.icon-evid { background-image: url(../wb/assets/tool_evid.png); background-size: 18px 18px; }
+.context-menu-item.icon-explo { background-image: url(../wb/assets/tool_explo20.png); background-size: 18px 18px; }
+.context-menu-item.icon-exploc { background-image: url(../wb/assets/tool_explo20_c.png); background-size: 18px 18px; }
+.context-menu-item.icon-group { background-image: url(../wb/assets/tool_group.png); background-size: 18px 18px; }
+.context-menu-item.icon-hexa { background-image: url(../wb/assets/tool_hexa.png); background-size: 18px 18px; }
+.context-menu-item.icon-img { background-image: url(../wb/assets/tool_img.png); background-size: 18px 18px; }
+.context-menu-item.icon-menu_conn { background-image: url(../wb/assets/tool_menu_conn.png); background-size: 18px 18px; }
+.context-menu-item.icon-openline { background-image: url(../wb/assets/tool_openline.png); background-size: 18px 18px; }
+.context-menu-item.icon-closeline { background-image: url(../wb/assets/tool_polygon.png); background-size: 18px 18px; }
+.context-menu-item.icon-toline { background-image: url(../wb/assets/tool_shapeline.png); background-size: 18px 18px; }
+.context-menu-item.icon-tocurve { background-image: url(../wb/assets/tool_curveline.png); background-size: 18px 18px; }
+.context-menu-item.icon-pen { background-image: url(../wb/assets/tool_pen.png); background-size: 18px 18px; }
+.context-menu-item.icon-pen2 { background-image: url(../wb/assets/tool_pen2.png); background-size: 18px 18px; }
+.context-menu-item.icon-penta { background-image: url(../wb/assets/tool_penta.png); background-size: 18px 18px; }
+.context-menu-item.icon-polygon{ background-image: url(../wb/assets/tool_polygon0.png); background-size: 18px 18px; }
+.context-menu-item.icon-rect { background-image: url(../wb/assets/tool_rectangle.png); background-size: 18px 18px; }
+.context-menu-item.icon-redo { background-image: url(../wb/assets/tool_redo.png); background-size: 18px 18px; }
+.context-menu-item.icon-rhomb { background-image: url(../wb/assets/tool_rhomb.png); background-size: 18px 18px; }
+.context-menu-item.icon-round { background-image: url(../wb/assets/tool_rounded_rectangle.png); background-size: 18px 18px; }
+.context-menu-item.icon-select { background-image: url(../wb/assets/tool_select.png); background-size: 18px 18px; }
+.context-menu-item.icon-back { background-image: url(../wb/assets/tool_sendback.png); background-size: 18px 18px; }
+.context-menu-item.icon-shapeline { background-image: url(../wb/assets/tool_shapeline0.png); background-size: 18px 18px; }
+.context-menu-item.icon-star { background-image: url(../wb/assets/tool_star.png); background-size: 18px 18px; }
+.context-menu-item.icon-text { background-image: url(../wb/assets/tool_text.png); background-size: 18px 18px; }
+.context-menu-item.icon-triang { background-image: url(../wb/assets/tool_triangle.png); background-size: 18px 18px; }
+.context-menu-item.icon-triang2 { background-image: url(../wb/assets/tool_triangle_rect.png); background-size: 18px 18px; }
+.context-menu-item.icon-undo { background-image: url(../wb/assets/tool_undo.png); background-size: 18px 18px; }
+.context-menu-item.icon-ungroup { background-image: url(../wb/assets/tool_ungroup.png); background-size: 18px 18px; }
+.context-menu-item.icon-flip { background-image: url(../wb/assets/tool_flip.png); background-size: 18px 18px; }
+.context-menu-item.icon-mirror { background-image: url(../wb/assets/tool_mirror.png); background-size: 18px 18px; }
+.context-menu-item.icon-pastef { background-image: url(../wb/assets/tool_painter.png); background-size: 18px 18px; }
+
+
+
+/* vertically align inside labels */
+.context-menu-input > label > * { vertical-align: top; }
+
+/* position checkboxes and radios as icons */
+.context-menu-input > label > input[type="checkbox"],
+.context-menu-input > label > input[type="radio"] {
+    margin-left: -17px;
+}
+.context-menu-input > label > span {
+    margin-left: 5px;
+}
+
+.context-menu-input > label,
+.context-menu-input > label > input[type="text"],
+.context-menu-input > label > textarea,
+.context-menu-input > label > select {
+    display: block;
+    width: 100%;
+    
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+         -o-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.context-menu-input > label > textarea {
+    height: 100px;
+}
+.context-menu-item > .context-menu-list {
+    display: none;
+    /* re-positioned by js */
+    right: -5px;
+    top: 5px;
+}
+
+.context-menu-item.hover > .context-menu-list {
+    display: block;
+}
+
+.context-menu-accesskey {
+    text-decoration: underline;
+}

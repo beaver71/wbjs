@@ -1,0 +1,112 @@
+.hoverBox{
+  margin: 5px 5px 5px 0;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+}
+.ui-button .ui-icon.btn-icon-select {
+	background-image: url('./wb/assets/tool_select.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button.ui-state-hover .ui-icon.btn-icon-select {
+	background-image: url('./wb/assets/tool_select.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-delete {
+	background-image: url('./wb/assets/tool_clear.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-delete_all {
+	background-image: url('./wb/assets/tool_clear_all.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-undo {
+	background-image: url('./wb/assets/tool_undo.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-redo {
+	background-image: url('./wb/assets/tool_redo.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-copy {
+	background-image: url('./wb/assets/tool_copy.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-cut {
+	background-image: url('./wb/assets/tool_cut.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-paste {
+	background-image: url('./wb/assets/tool_paste.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-front {
+	background-image: url('./wb/assets/tool_bringfront.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-back {
+	background-image: url('./wb/assets/tool_sendback.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-simple {
+	background-image: url('./wb/assets/tool_ellipse.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-marker {
+	background-image: url('./wb/assets/tool_pen.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-arrow {
+	background-image: url('./wb/assets/tool_arrow.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-line {
+	background-image: url('./wb/assets/tool_shapeline0.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-polygon {
+	background-image: url('./wb/assets/tool_polygon0.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-curveline {
+	background-image: url('./wb/assets/tool_curveline.png');
+	width: 25px;
+	height: 25px; 
+}		
+.ui-button .ui-icon.btn-icon-img {
+	background-image: url('./wb/assets/tool_img.png');
+	width: 25px;
+	height: 25px; 
+}		
+.ui-button .ui-icon.btn-icon-text {
+	background-image: url('./wb/assets/tool_text.png');
+	width: 25px;
+	height: 25px; 
+}
+
+.ui-button .ui-icon.btn-icon-open {
+	background-image: url('./wb/assets/open.png');
+	width: 25px;
+	height: 25px; 
+}
+.ui-button .ui-icon.btn-icon-save {
+	background-image: url('./wb/assets/save.png');
+	width: 25px;
+	height: 25px; 
+}
